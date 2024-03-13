@@ -260,5 +260,14 @@ class Page
         $statement->execute();
         return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
+        public function delete(int $id, String $table_name, String $colname){
+        $sql = "DELETE FROM ".$table_name." WHERE ".$colname."= :id";
+        $stmt = $this->link->prepare($sql);
+        try {
+            $stmt->execute(['id' => $id]);
+        } catch (\PDOException $e) {
+            throw new \Exception($e->getMessage());
+        }
+    }
         
 }
